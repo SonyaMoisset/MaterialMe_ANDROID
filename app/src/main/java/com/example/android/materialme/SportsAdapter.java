@@ -5,7 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -28,6 +31,7 @@ class SportsAdapter extends RecyclerView.Adapter<SportsAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(SportsAdapter.ViewHolder holder, int position) {
         Sport currentSport = mSportsData.get(position);
+        Glide.with(mContext).load(currentSport.getImageResource()).into(holder.mSportsImage);
         holder.bindTo(currentSport);
     }
 
@@ -40,18 +44,19 @@ class SportsAdapter extends RecyclerView.Adapter<SportsAdapter.ViewHolder> {
 
         private TextView mTitleText;
         private TextView mInfoText;
+        private ImageView mSportsImage;
 
         ViewHolder(View itemView) {
             super(itemView);
 
             mTitleText = (TextView) itemView.findViewById(R.id.title);
             mInfoText = (TextView) itemView.findViewById(R.id.subTitle);
+            mSportsImage = (ImageView) itemView.findViewById(R.id.sportsImage);
         }
 
         void bindTo(Sport currentSport) {
             mTitleText.setText(currentSport.getTitle());
             mInfoText.setText(currentSport.getInfo());
-
         }
     }
 }
