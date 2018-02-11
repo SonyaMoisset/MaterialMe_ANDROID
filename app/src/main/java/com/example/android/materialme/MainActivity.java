@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 
 import java.util.ArrayList;
 
@@ -29,6 +30,25 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
 
         initializeData();
+
+        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper
+                .SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+                                  RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                mSportsData.remove(viewHolder.getAdapterPosition());
+
+                mAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+            }
+        });
+
+        helper.attachToRecyclerView(mRecyclerView);
     }
 
     private void initializeData() {
@@ -39,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
         mSportsData.clear();
 
         for (int i = 0; i < sportsList.length; i++) {
-            mSportsData.add(new Sport(sportsList[i], sportsInfo[i], sportsImageResources.getResourceId(i, 0)));
+            mSportsData.add(new Sport(sportsList[i], sportsInfo[i],
+                    sportsImageResources.getResourceId(i, 0)));
         }
 
         sportsImageResources.recycle();
