@@ -3,6 +3,7 @@
     <string name="title_placeholder">Title</string>
     <string name="news_placeholder">News</string>
     <string name="sports_info_placeholder">Here is some news</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, mel utamur inciderint te, eu eum sonet suscipit. Eam an blandit detraxit, at quod sale euismod qui. Mel ad sonet petentium. At vidit doctus quo, et usu clita postea, est delicata voluptatibus ut.</string>
 
     <string-array name="sports_titles">
         <item>Baseball</item>
