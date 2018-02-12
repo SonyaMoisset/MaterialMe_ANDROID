@@ -23,6 +23,7 @@
         android:layout_alignParentRight="true"
         android:layout_margin="@dimen/medium_padding"
         android:onClick="resetSports"
-        android:src="@drawable/ic_reset"/>
+        android:src="@drawable/ic_reset"
+        android:tint="#FFFFFF"/>
 
 </RelativeLayout>
