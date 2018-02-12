@@ -3,6 +3,7 @@ package com.example.android.materialme;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -33,10 +34,20 @@ public class MainActivity extends AppCompatActivity {
 
         initializeData();
 
-        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper
-                .SimpleCallback(ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT |
-                ItemTouchHelper.DOWN | ItemTouchHelper.UP, ItemTouchHelper.LEFT |
-                ItemTouchHelper.RIGHT) {
+        int swipeDirections;
+        int gridColumnCount = getResources().getInteger(R.integer.grid_column_count);
+
+        if (gridColumnCount > 1) {
+            swipeDirections = 0;
+        } else {
+            swipeDirections = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
+        }
+
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this, gridColumnCount));
+
+        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback
+                (ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.DOWN
+                        | ItemTouchHelper.UP, swipeDirections) {
 
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
@@ -59,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         helper.attachToRecyclerView(mRecyclerView);
+
+
     }
 
     private void initializeData() {
